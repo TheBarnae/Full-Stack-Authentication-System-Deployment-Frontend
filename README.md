@@ -1,33 +1,49 @@
-# Full-Stack Authentication System — Angular Frontend 🎨
+# 🔐 Robust Auth Engine (Node.js Backend)
 
-A modern, responsive Single Page Application (SPA) built with **Angular 21**. This frontend communicates with a live Node.js/Express API to provide a seamless user authentication experience.
+A high-performance, secure backend API serving as the backbone for the Garcia Full-Stack Authentication System. Built with **Node.js**, **Express**, and **MySQL**, this system implements industry-standard security practices to ensure data integrity and user safety.
 
-## 🔗 Live Links
-- **Live Application:** [https://garcia-full-stack-authentication-system.vercel.app](https://garcia-full-stack-authentication-system.vercel.app)
-- **Backend API:** [https://full-stack-authentication-system-u3yx.onrender.com](https://full-stack-authentication-system-u3yx.onrender.com)
+## 🚀 Live Environment
+- **API Base URL:** [https://full-stack-authentication-system-u3yx.onrender.com](https://full-stack-authentication-system-u3yx.onrender.com)
+- **Interactive Docs:** [https://full-stack-authentication-system-u3yx.onrender.com/api-docs](https://full-stack-authentication-system-u3yx.onrender.com/api-docs)
 
-## 🛠 Tech Stack
-- **Framework:** Angular 21
-- **Styling:** Less / Bootstrap
-- **Deployment:** Vercel (SPA mode)
-- **Authentication:** JWT (In-memory) + Refresh Tokens (HTTP-only Cookies)
+## 🛡️ Key Security Features
+- **JWT & Refresh Tokens:** Secure session management using short-lived access tokens and secure HTTP-only refresh cookies.
+- **RBAC (Role-Based Access Control):** Granular permissions for `Admin` and `User` accounts.
+- **Email Verification:** Required account activation via Brevo API integration.
+- **Password Hashing:** Industry-standard hashing via `bcryptjs`.
+- **CORS Restriction:** Strict origin matching to protect against cross-site attacks.
 
-## ✨ Key Features
-- **User Dashboard:** Profile management and account details.
-- **Admin Panel:** Restricted area for managing system accounts.
-- **Auth Guards:** Protection of private routes from unauthenticated access.
-- **HTTP Interceptors:** Automatic token injection and error handling.
-- **Verification Flow:** Seamless handling of email verification links.
+## 🛠️ Technical Stack
+- **Runtime:** Node.js v20+
+- **Framework:** Express.js
+- **Database:** MySQL (Hosted on Railway)
+- **ORM:** Sequelize
+- **Mailing:** Brevo (Sendinblue) API
+- **Documentation:** Swagger / OpenAPI 3.0
 
-## ⚙️ Configuration
-- **Production URL:** Configured in `src/environments/environment.prod.ts`.
-- **SPA Routing:** Managed via `vercel.json` for seamless deep-linking.
+## 📂 Project Structure
+```text
+src/
+├── controllers/    # API Logic & Request Handling
+├── _helpers/        # Database & Email Utilities
+├── middleware/     # Auth Guards & Validation
+├── models/         # Sequelize Data Schemas
+└── routes/         # Express Route Definitions
+```
 
-## 🚀 Local Setup
-1. Clone the repository.
-2. Navigate to the `frontend` directory.
-3. Run `npm install`.
-4. Run `ng serve` to start the local dev server at `http://localhost:4200`.
+## ⚙️ How to Setup (Local)
+1. **Clone & Install:**
+   ```bash
+   npm install
+   ```
+2. **Environment Configuration:**
+   Create a `.env` or update `config.json` with your MySQL credentials and Brevo API key.
+3. **Database Sync:**
+   The app will automatically sync models with the database on startup.
+4. **Launch:**
+   ```bash
+   npm start
+   ```
 
 ---
-*Developed for the Final Examination - Full Stack Development.*
+*Developed as part of the Integrated Programming Finals - Project "SecureAuth"*
