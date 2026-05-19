@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://auth-system-backend.onrender.com/api'
+    apiUrl: 'https://full-stack-authentication-system-u3yx.onrender.com/api'
 };
