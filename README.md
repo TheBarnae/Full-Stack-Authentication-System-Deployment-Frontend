@@ -1,4 +1,4 @@
-# 🔐 Robust Auth Engine (Node.js Backend)
+# Full-Stack Authentication System
 
 A high-performance, secure backend API serving as the backbone for the Garcia Full-Stack Authentication System. Built with **Node.js**, **Express**, and **MySQL**, this system implements industry-standard security practices to ensure data integrity and user safety.
 
