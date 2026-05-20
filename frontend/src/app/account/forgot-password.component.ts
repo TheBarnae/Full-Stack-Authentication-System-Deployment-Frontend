@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 
-import { AccountService } from '@app/_services';
+import { AccountService, AlertService } from '@app/_services';
 
 @Component({ templateUrl: 'forgot-password.component.html', standalone: false })
 export class ForgotPasswordComponent implements OnInit {
@@ -14,7 +15,10 @@ export class ForgotPasswordComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private accountService: AccountService
+        private route: ActivatedRoute,
+        private router: Router,
+        private accountService: AccountService,
+        private alertService: AlertService
     ) { }
 
     ngOnInit() {
@@ -29,15 +33,21 @@ export class ForgotPasswordComponent implements OnInit {
         this.submitted = true;
         this.successMessage = '';
         this.errorMessage = '';
+        this.alertService.clear();
 
         if (this.form.invalid) return;
 
         this.loading = true;
 
+        // Increased timeout to 30s for slower servers
         const timeout = setTimeout(() => {
-            this.loading = false;
-            this.successMessage = 'If this email exists, password reset instructions have been sent.';
-        }, 15000);
+            if (this.loading) {
+                this.loading = false;
+                this.successMessage = 'If this email exists, password reset instructions have been sent.';
+                this.alertService.success(this.successMessage);
+                this.router.navigate(['../login'], { relativeTo: this.route });
+            }
+        }, 30000);
 
         this.accountService.forgotPassword(this.f['email'].value)
             .pipe(first())
@@ -46,12 +56,16 @@ export class ForgotPasswordComponent implements OnInit {
                     clearTimeout(timeout);
                     this.loading = false;
                     this.successMessage = 'Please check your email for password reset instructions.';
+                    this.alertService.success(this.successMessage, { keepAfterRouteChange: true });
+                    this.router.navigate(['../login'], { relativeTo: this.route });
                 },
                 error: error => {
                     clearTimeout(timeout);
                     this.loading = false;
                     this.errorMessage = error;
+                    this.alertService.error(error);
                 }
             });
     }
+}
 }

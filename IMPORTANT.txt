@@ -1,6 +1,29 @@
 IMPORTANT!!
+RAILWAY DEETS:
 MYSQLHOST     → mysql.railway.internal
 MYSQLPORT     → 3306
 MYSQLDATABASE → railway
 MYSQLUSER     → root
-MYSQLPASSWORD → TTarvBRqjbKLXDtQPhQRDVrpAhyvXkYf
+MYSQLPASSWORD → (check-railway-dashboard)
+
+BREVO DEETS:
+SMTP_HOST = smtp-relay.brevo.com
+SMTP_PORT = 587
+SMTP_USER = abd935001@smtp-brevo.com
+SMTP_PASS = (check-brevo-dashboard)
+
+RAILWAY DEETS:
+PORT          = 4000
+NODE_ENV      = production
+DB_HOST       = (from Railway)
+DB_PORT       = (from Railway, usually 3306)
+DB_NAME       = auth_system_db
+DB_USER       = (from Railway)
+DB_PASS       = (from Railway)
+JWT_SECRET    = THIS-IS-A-JWT-SECRET-TOKEN
+EMAIL_FROM    = your-verified@gmail.com
+SMTP_HOST     = smtp-relay.brevo.com
+SMTP_PORT     = 587
+SMTP_USER     = your-brevo-login@gmail.com
+SMTP_PASS     = (from Brevo SMTP key)
+CORS_ORIGIN   = https://your-app.vercel.app

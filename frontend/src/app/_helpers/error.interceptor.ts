@@ -19,8 +19,14 @@ export class ErrorInterceptor implements HttpInterceptor {
                 return this.handle401Error(request, next);
             }
 
-            const error = (err && err.error && err.error.message) || err.message || err.statusText || 'An error occurred';
-            console.error(err);
+            let error = 'An error occurred';
+            if (err && err.error) {
+                error = err.error.message || (typeof err.error === 'string' ? err.error : err.message || err.statusText);
+            } else {
+                error = err.message || err.statusText || error;
+            }
+            
+            console.error('Error intercepted:', err);
             return throwError(() => error);
         }));
     }

@@ -31,36 +31,41 @@ export class LoginComponent implements OnInit {
     get f() { return this.form.controls; }
 
     onSubmit() {
-    this.submitted = true;
-    this.alertService.clear();
+        this.submitted = true;
+        this.alertService.clear();
+        this.errorMessage = '';
 
-    if (this.form.invalid) {
-        return;
-    }
+        if (this.form.invalid) {
+            return;
+        }
 
-    this.loading = true;
+        this.loading = true;
 
-    // Timeout fallback in case Render is slow
-    const timeout = setTimeout(() => {
-        this.loading = false;
-        this.alertService.error('Server is taking too long to respond. Please try again.');
-    }, 15000);
-
-    this.accountService.login(this.f['email'].value, this.f['password'].value)
-        .pipe(first())
-        .subscribe({
-            next: () => {
-                clearTimeout(timeout);
-                const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-                this.router.navigateByUrl(returnUrl);
-            },
-           error: error => {
-            clearTimeout(timeout);
-            this.errorMessage = error?.toString().toLowerCase().includes('verify')
-        ? 'Your email is not verified. Please check your email for verification instructions.'
-        : error;
-             this.loading = false;
+        // Timeout fallback in case Render is slow - increased to 30s
+        const timeout = setTimeout(() => {
+            if (this.loading) {
+                this.loading = false;
+                this.errorMessage = 'Server is taking too long to respond. Please try again.';
+                this.alertService.error('Server is taking too long to respond. Please try again.');
             }
-        });
+        }, 30000);
+
+        this.accountService.login(this.f['email'].value, this.f['password'].value)
+            .pipe(first())
+            .subscribe({
+                next: () => {
+                    clearTimeout(timeout);
+                    const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+                    this.router.navigateByUrl(returnUrl);
+                },
+                error: error => {
+                    clearTimeout(timeout);
+                    this.errorMessage = error?.toString().toLowerCase().includes('verify')
+                        ? 'Your email is not verified. Please check your email for verification instructions.'
+                        : error;
+                    this.loading = false;
+                    this.alertService.error(this.errorMessage);
+                }
+            });
     }
 }

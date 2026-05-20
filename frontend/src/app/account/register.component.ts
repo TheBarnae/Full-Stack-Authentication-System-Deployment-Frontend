@@ -45,11 +45,13 @@ export class RegisterComponent implements OnInit {
 
     this.loading = true;
 
-    // Set a 15 second timeout in case email sending is slow
+    // Set a 30 second timeout in case email sending is slow
     const timeout = setTimeout(() => {
-        this.alertService.success('Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
-        this.router.navigate(['../login'], { relativeTo: this.route });
-    }, 15000);
+        if (this.loading) {
+            this.alertService.success('Registration successful, please check your email for verification instructions', { keepAfterRouteChange: true });
+            this.router.navigate(['../login'], { relativeTo: this.route });
+        }
+    }, 30000);
 
     this.accountService.register(this.form.value)
         .pipe(first())
