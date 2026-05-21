@@ -6,6 +6,7 @@ import { Role } from './_models';
 
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule);
+const profileModule = () => import('./profile/profile.module').then(x => x.ProfileModule);
 
 import { HomeComponent } from './home/home.component';
 
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'account', loadChildren: accountModule },
     { path: 'admin', loadChildren: adminModule, canActivate: [AuthGuard, AdminGuard] },
+    { path: 'profile', loadChildren: profileModule, canActivate: [AuthGuard] },
 
     // Otherwise redirect to home
     { path: '**', redirectTo: '/home' }
