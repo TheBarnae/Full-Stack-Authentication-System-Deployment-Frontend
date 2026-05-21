@@ -1,8 +1,8 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "baseUrl": "./",
+    "rootDir": "src",
     "outDir": "./dist/out-tsc",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -13,12 +13,10 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "bundler",
-    "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
+    "moduleResolution": "bundler",
+    "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
