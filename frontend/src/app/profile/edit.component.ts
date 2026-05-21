@@ -51,7 +51,13 @@ export class EditComponent implements OnInit {
     }
 
     private updateProfile() {
-        this.accountService.update(this.accountService.accountValue!.id, this.form.value)
+        const userId = this.accountService.accountValue?.id;
+        if (userId === undefined) {
+            this.alertService.error('User session not found');
+            return;
+        }
+
+        this.accountService.update(userId, this.form.value)
             .pipe(first())
             .subscribe({
                 next: () => {
